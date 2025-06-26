@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convertisseur BPM → demi-tons</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1a1a1a;
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    label, input {
+      font-size: 1.2rem;
+      margin: 0.3rem;
+    }
+    input {
+      padding: 0.4rem;
+      width: 100px;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 1.5rem;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Convertisseur BPM → demi-tons</h1>
+  <div>
+    <label for="bpmOrig">BPM d'origine :</label>
+    <input type="number" id="bpmOrig" value="120">
+  </div>
+  <div>
+    <label for="bpmTarget">BPM cible :</label>
+    <input type="number" id="bpmTarget" value="130">
+  </div>
+  <button onclick="calculerDemiTons()">Calculer</button>
+  <div class="result" id="resultat"></div>
+
+  <script>
+    function calculerDemiTons() {
+      const bpmOrig = parseFloat(document.getElementById('bpmOrig').value);
+      const bpmTarget = parseFloat(document.getElementById('bpmTarget').value);
+
+      if (bpmOrig > 0 && bpmTarget > 0) {
+        const ratio = bpmTarget / bpmOrig;
+        const demiTons = 12 * Math.log2(ratio);
+        const arrondi = demiTons;
+
+        document.getElementById('resultat').innerText = `Décalage nécessaire : ${arrondi} demi-tons`;
+      } else {
+        document.getElementById('resultat').innerText = 'Veuillez entrer des BPM valides.';
+      }
+    }
+  </script>
+</body>
+</html>
